@@ -1,9 +1,12 @@
 
 
 import ujson
+import nltk.data
 
 
 class Article:
+
+    sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
 
     @classmethod
     def from_path(cls, path):
@@ -19,3 +22,8 @@ class Article:
             data (dict)
         """
         self.data = data
+
+    def sentences(self):
+        """Split text into sentences.
+        """
+        return self.sent_detector.tokenize(self.data['text'])
