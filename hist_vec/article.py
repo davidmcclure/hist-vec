@@ -26,4 +26,5 @@ class Article:
     def sentences(self):
         """Split text into sentences.
         """
-        return self.sent_detector.tokenize(self.data['text'])
+        text = self.data['text'] or ''
+        return self.sent_detector.tokenize(text)
