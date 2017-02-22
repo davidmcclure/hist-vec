@@ -10,3 +10,4 @@ matplotlib
 jupyter
 statsmodels
 numpy
+pandas
