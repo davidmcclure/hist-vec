@@ -6,4 +6,5 @@ gensim
 ujson
 spacy
 click
+matplotlib
 jupyter
