@@ -10,4 +10,6 @@ matplotlib
 jupyter
 statsmodels
 numpy
+beautifulsoup4
 pandas
+lxml

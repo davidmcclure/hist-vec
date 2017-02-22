@@ -4,7 +4,7 @@ import ujson
 import re
 
 
-class Article:
+class BPOArticle:
 
     @classmethod
     def from_path(cls, path):

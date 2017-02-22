@@ -6,7 +6,7 @@ from itertools import islice
 from gensim.models.word2vec import Word2Vec
 
 from .utils import scan_paths
-from .article import Article
+from .bpo_article import BPOArticle
 
 
 class Corpus:
@@ -48,7 +48,7 @@ class Corpus:
         """
         for i, path in enumerate(self.slice_paths(slice_name)):
 
-            article = Article.from_path(path)
+            article = BPOArticle.from_path(path)
 
             yield from article.sentences()
 
