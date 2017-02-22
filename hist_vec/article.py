@@ -1,13 +1,10 @@
 
 
 import ujson
-import nltk.data
-import spacy
+import re
 
 
 class Article:
-
-    nlp = spacy.load('en')
 
     @classmethod
     def from_path(cls, path):
@@ -29,14 +26,11 @@ class Article:
 
         Yields: list of str
         """
-        doc = self.nlp(self.data['text'] or '')
+        # Don't ask.
+        sents = re.split(
+            '(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s',
+            self.data['text'] or ''
+        )
 
-        for sent in doc.sents:
-
-            tokens = doc[sent.start:sent.end]
-
-            # Convert to lowercase string.
-            tokens = map(str, tokens)
-            tokens = map(str.lower, tokens)
-
-            yield list(tokens)
+        for sent in sents:
+            yield re.findall('[a-z]+', sent.lower())

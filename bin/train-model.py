@@ -2,8 +2,12 @@
 
 
 import click
+import logging
 
 from hist_vec.corpus import Corpus
+
+
+logging.basicConfig(level=logging.INFO)
 
 
 @click.command()

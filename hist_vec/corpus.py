@@ -46,11 +46,14 @@ class Corpus:
 
         Yields: str
         """
-        for path in self.slice_paths(slice_name):
+        for i, path in enumerate(self.slice_paths(slice_name)):
 
             article = Article.from_path(path)
 
             yield from article.sentences()
+
+            if i % 100 == 0:
+                print(i)
 
     def word2vec_model(self, slice_name):
         """Train a word2vec model on slice.
