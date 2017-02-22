@@ -1,5 +1,6 @@
 
 ipython
+boltons
 nltk
 gensim
 ujson
