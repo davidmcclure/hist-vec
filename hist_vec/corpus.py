@@ -11,13 +11,6 @@ from .article import Article
 
 class Corpus:
 
-    @classmethod
-    def from_env(cls):
-        """Bind to ENV corpus.
-        """
-        # TODO: From config.
-        return cls('/Users/dclure/Projects/data/vectors/slices')
-
     def __init__(self, path):
         """Wrap BPO slices corpus.
 
