@@ -3,6 +3,7 @@
 
 import click
 import logging
+import os
 
 from hist_vec.corpus import Corpus
 
@@ -12,15 +13,20 @@ logging.basicConfig(level=logging.INFO)
 
 @click.command()
 @click.argument('corpus_dir')
-@click.argument('slice_name')
-@click.argument('out_path')
-def train(corpus_dir, slice_name, out_path):
+@click.argument('model_dir')
+def train(corpus_dir, model_dir):
     """Train a model on a historical slice.
     """
     corpus = Corpus(corpus_dir)
 
-    model = corpus.word2vec_model(slice_name)
-    model.save(out_path)
+    for name in corpus.slice_names():
+
+        print(name)
+
+        model = corpus.word2vec_model(name)
+
+        path = os.path.join(model_dir, name+'.bin')
+        model.save(path)
 
 
 if __name__ == '__main__':
