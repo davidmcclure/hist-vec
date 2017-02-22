@@ -7,6 +7,7 @@ from gensim.models.word2vec import Word2Vec
 
 from .utils import scan_paths
 from .bpo_article import BPOArticle
+from .book import Book
 
 
 class Corpus:
@@ -46,14 +47,7 @@ class Corpus:
 
         Yields: str
         """
-        for i, path in enumerate(self.slice_paths(slice_name)):
-
-            article = BPOArticle.from_path(path)
-
-            yield from article.sentences()
-
-            if i % 100 == 0:
-                print(i)
+        raise NotImplementedError
 
     def word2vec_model(self, slice_name):
         """Train a word2vec model on slice.
@@ -66,3 +60,43 @@ class Corpus:
         sentences = list(self.sentences(slice_name))
 
         return Word2Vec(sentences, size=100, min_count=10, workers=8)
+
+
+class BPOCorpus(Corpus):
+
+    def sentences(self, slice_name):
+        """Get a list of all sentences for a slice.
+
+        Args:
+            slice_name (str)
+
+        Yields: str
+        """
+        for i, path in enumerate(self.slice_paths(slice_name)):
+
+            article = BPOArticle.from_path(path)
+
+            yield from article.sentences()
+
+            if i % 100 == 0:
+                print(i)
+
+
+class BookCorpus(Corpus):
+
+    def sentences(self, slice_name):
+        """Get a list of all sentences for a slice.
+
+        Args:
+            slice_name (str)
+
+        Yields: str
+        """
+        for i, path in enumerate(self.slice_paths(slice_name)):
+
+            book = Book.from_path(path)
+
+            yield from book.sentences()
+
+            if i % 100 == 0:
+                print(i)

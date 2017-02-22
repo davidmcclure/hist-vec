@@ -1,5 +1,7 @@
 
 
+import regex
+
 from bs4 import BeautifulSoup
 
 
@@ -28,6 +30,15 @@ class Book:
 
         Returns: str
         """
-        ps = self.tree.select('p')
+        ps = self.tree.select('text p')
 
-        return ' '.join([list(p.stripped_strings)[0] for p in ps])
+        strings = [p.string for p in ps if p.string]
+
+        return ' '.join(strings)
+
+    def sentences(self):
+        """Split text into sentences.
+
+        Yields: list of str
+        """
+        yield regex.findall('\p{L}+', self.plain_text().lower())
