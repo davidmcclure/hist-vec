@@ -11,7 +11,12 @@ from hist_vec.corpus import BPOCorpus, BookCorpus
 logging.basicConfig(level=logging.INFO)
 
 
-@click.command()
+@click.group()
+def cli():
+    pass
+
+
+@cli.command()
 @click.argument('corpus_dir')
 @click.argument('model_dir')
 def train_bpo(corpus_dir, model_dir):
@@ -29,7 +34,7 @@ def train_bpo(corpus_dir, model_dir):
         model.save(path)
 
 
-@click.command()
+@cli.command()
 @click.argument('corpus_dir')
 @click.argument('model_dir')
 def train_criticism(corpus_dir, model_dir):
@@ -48,4 +53,4 @@ def train_criticism(corpus_dir, model_dir):
 
 
 if __name__ == '__main__':
-    train()
+    cli()
