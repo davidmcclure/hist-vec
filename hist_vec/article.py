@@ -32,4 +32,11 @@ class Article:
         doc = self.nlp(self.data['text'] or '')
 
         for sent in doc.sents:
-            yield list(map(str, doc[sent.start:sent.end]))
+
+            tokens = doc[sent.start:sent.end]
+
+            # Convert to lowercase string.
+            tokens = map(str, tokens)
+            tokens = map(str.lower, tokens)
+
+            yield list(tokens)
