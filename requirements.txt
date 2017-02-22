@@ -3,3 +3,4 @@ ipython
 nltk
 gensim
 ujson
+spacy

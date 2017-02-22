@@ -2,11 +2,12 @@
 
 import ujson
 import nltk.data
+import spacy
 
 
 class Article:
 
-    sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
+    nlp = spacy.load('en')
 
     @classmethod
     def from_path(cls, path):
@@ -25,6 +26,10 @@ class Article:
 
     def sentences(self):
         """Split text into sentences.
+
+        Yields: list of str
         """
-        text = self.data['text'] or ''
-        return self.sent_detector.tokenize(text)
+        doc = self.nlp(self.data['text'] or '')
+
+        for sent in doc.sents:
+            yield list(doc[sent.start:sent.end])
