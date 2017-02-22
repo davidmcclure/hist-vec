@@ -8,3 +8,5 @@ spacy
 click
 matplotlib
 jupyter
+statsmodels
+numpy
