@@ -25,8 +25,8 @@ class Corpus:
         """
         return next(os.walk(self.path))[1]
 
-    def sentences(self, slice_name):
-        """Get a list of all sentences for a slice.
+    def slice_paths(self, slice_name):
+        """Generate paths in a slice.
 
         Args:
             slice_name (str)
@@ -35,7 +35,17 @@ class Corpus:
         """
         slice_path = os.path.join(self.path, slice_name)
 
-        for path in scan_paths(slice_path):
+        yield from scan_paths(slice_path)
+
+    def sentences(self, slice_name):
+        """Get a list of all sentences for a slice.
+
+        Args:
+            slice_name (str)
+
+        Yields: str
+        """
+        for path in self.slice_paths(slice_name):
 
             article = Article.from_path(path)
 
