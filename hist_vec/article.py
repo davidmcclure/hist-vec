@@ -32,4 +32,4 @@ class Article:
         doc = self.nlp(self.data['text'] or '')
 
         for sent in doc.sents:
-            yield list(doc[sent.start:sent.end])
+            yield list(map(str, doc[sent.start:sent.end]))

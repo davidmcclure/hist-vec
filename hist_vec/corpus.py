@@ -2,6 +2,7 @@
 
 import os
 
+from itertools import islice
 from gensim.models.word2vec import Word2Vec
 
 from .utils import scan_paths
@@ -9,6 +10,13 @@ from .article import Article
 
 
 class Corpus:
+
+    @classmethod
+    def from_env(cls):
+        """Bind to ENV corpus.
+        """
+        # TODO: From config.
+        return cls('/Users/dclure/Projects/data/vectors/slices')
 
     def __init__(self, path):
         """Wrap BPO slices corpus.
@@ -59,6 +67,6 @@ class Corpus:
 
         Returns: Word2Vec
         """
-        sentences = list(self.sentences(slice_name))
+        sentences = list(islice(self.sentences(slice_name), 1000))
 
-        return Word2Vec(sentences, size=100, min_count=100, workers=8)
+        return Word2Vec(sentences, size=100, min_count=1, workers=8)
