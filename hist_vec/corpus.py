@@ -67,6 +67,6 @@ class Corpus:
 
         Returns: Word2Vec
         """
-        sentences = list(islice(self.sentences(slice_name), 1000))
+        sentences = list(self.sentences(slice_name))
 
-        return Word2Vec(sentences, size=100, min_count=1, workers=8)
+        return Word2Vec(sentences, size=100, min_count=10, workers=8)
