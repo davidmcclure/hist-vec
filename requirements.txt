@@ -5,3 +5,4 @@ gensim
 ujson
 spacy
 click
+jupyter
