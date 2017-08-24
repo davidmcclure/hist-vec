@@ -14,31 +14,17 @@ class Book:
         Args:
             path (str)
         """
-        with open(path, 'rb') as fh:
+        with open(path, 'r') as fh:
             return cls(fh.read())
 
-    def __init__(self, xml):
+    def __init__(self, text):
         """Parse the XML tree.
-
-        Args:
-            xml (str)
         """
-        self.tree = BeautifulSoup(xml, 'xml')
-
-    def plain_text(self):
-        """Return raw text string.
-
-        Returns: str
-        """
-        ps = self.tree.select('text p')
-
-        strings = [p.string for p in ps if p.string]
-
-        return ' '.join(strings)
+        self.text = text
 
     def sentences(self):
         """Split text into sentences.
 
         Yields: list of str
         """
-        yield regex.findall('\p{L}+', self.plain_text().lower())
+        yield regex.findall('\p{L}+', self.text.lower())
